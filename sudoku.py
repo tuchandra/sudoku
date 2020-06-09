@@ -44,6 +44,37 @@ def get_nytimes():
     return puzzles
 
 
+def get_dailysudoku():
+    """Get puzzle from dailysudoku.com"""
+
+    year = datetime.now().year
+    month = datetime.now().month
+    day = datetime.now().day
+
+    url = f"http://www.dailysudoku.com/cgi-bin/sudoku/get_board.pl?year={year}&month={month}&day={day}"
+    data = requests.get(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0"
+        },
+    ).json()
+
+    numbers = data["numbers"].replace(".", "0")
+    return f"{sudokuexchange_head}{numbers}"
+
+
+def get_sudokuuk():
+    """Scrape daily puzzle from sudoku.org.uk"""
+
+    url = "http://www.sudoku.org.uk/daily.asp"
+
+
+def get_guardian():
+    """Scrape irregular puzzles from The Guardian"""
+
+    url = "https://www.theguardian.com/lifeandstyle/series/sudoku-hard"
+
+
 def get_latimes():
     """Scrape all four LA Times puzzles"""
 
@@ -54,9 +85,6 @@ def get_latimes():
         soup = BeautifulSoup(text, features="html.parser")
 
 
-
-
-
 if __name__ == "__main__":
-    puzzles = get_nytimes()
-    print(puzzles)
+    for sudoku_fetcher in (get_nytimes, get_dailysudoku):
+        print(sudoku_fetcher())
