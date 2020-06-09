@@ -16,12 +16,13 @@ jobs:
       matrix:
         python-version: [3.8]
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
+    # Run Python stuff
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -32,4 +33,13 @@ jobs:
     - name: Run Sudoku
       run: |
         python sudoku.py
+
+    # Run Node stuff
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - run: npm install
+    - run: node index.js
+
     
