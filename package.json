@@ -1,0 +1,22 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "scraping sudoku puzzles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuchandra/sudoku.git"
+  },
+  "author": "tushar chandra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tuchandra/sudoku/issues"
+  },
+  "homepage": "https://github.com/tuchandra/sudoku#readme",
+  "dependencies": {
+    "puppeteer": "^3.3.0"
+  }
+}
