@@ -1,4 +1,4 @@
-name: Get NY Times puzzle links
+name: Get Sudoku puzzle links
 
 on:
   schedule:
@@ -6,16 +6,12 @@ on:
   push:
     branches: [ master ]
 
-
-# A workflow run is made up of one or more jobs
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  run:
     runs-on: ubuntu-latest
 
     steps:
-
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Check out code
     - uses: actions/checkout@v2
 
     # Run Python stuff
