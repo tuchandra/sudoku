@@ -12,9 +12,6 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
 
     steps:
 
@@ -25,14 +22,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.8
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
-    - name: Run Sudoku
-      run: |
-        python sudoku.py
+    - name: Run Python scraper
+      run: python sudoku.py
 
     # Run Node stuff
     - name: Set up Node
@@ -40,6 +36,7 @@ jobs:
       with:
         node-version: 14
     - run: npm install
-    - run: node index.js
+    - name: Run Node scraper
+      run: node index.js
 
     
