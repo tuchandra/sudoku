@@ -2,7 +2,7 @@ name: Get NY Times puzzle links
 
 on:
   schedule:
-    - cron: '20 * * * *'
+    - cron: '20/5 * * * *'
 
 # A workflow run is made up of one or more jobs
 jobs:
