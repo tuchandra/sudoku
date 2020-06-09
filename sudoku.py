@@ -63,28 +63,6 @@ def get_dailysudoku():
     return f"{sudokuexchange_head}{numbers}"
 
 
-def get_sudokuuk():
-    """Scrape daily puzzle from sudoku.org.uk"""
-
-    url = "http://www.sudoku.org.uk/daily.asp"
-
-
-def get_guardian():
-    """Scrape irregular puzzles from The Guardian"""
-
-    url = "https://www.theguardian.com/lifeandstyle/series/sudoku-hard"
-
-
-def get_latimes():
-    """Scrape all four LA Times puzzles"""
-
-    today = datetime.now().strftime(r"%Y%m%d")
-    for difficulty in ("easy", "medium", "hard", "expert"):
-        url = f"https://cdn4.amuselabs.com/lat/sudoku?id=latimes-sudoku-{difficulty}-{today}&set=latimes-sudoku-{difficulty}"
-        text = requests.get(url).text
-        soup = BeautifulSoup(text, features="html.parser")
-
-
 if __name__ == "__main__":
     for sudoku_fetcher in (get_nytimes, get_dailysudoku):
         print(sudoku_fetcher())
