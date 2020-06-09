@@ -43,13 +43,37 @@ async function getLATimesPuzzle(url) {
   return puzzle;
 }
 
+async function getUKDailyPuzzle() {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("http://www.sudoku.org.uk/DailySudoku.asp");
+
+  const puzzle_url = await page.evaluate(() => {
+    let labels = [];
+    for (cell of document.getElementsByClassName("InnerTDOne")) {
+      labels.push(parseInt(cell.innerText));
+    }
+    labels = labels.map(x => (isNaN(x) ? 0 : x));
+
+    let text = "https://sudokuexchange.com/play/?s=" + labels.join("");
+    return text;
+  });
+
+  return puzzle_url;
+}
+
 async function main() {
+  // get LA Times puzzles
   const difficulties = ["easy", "medium", "hard", "expert"];
   for (diff of difficulties) {
     url = getLATimesURL(diff);
     puzzle_link = await getLATimesPuzzle(url);
     console.log(diff, puzzle_link);
   }
+
+  // get UK Daily puzzle
+  ukDailyPuzzle = await getUKDailyPuzzle();
+  console.log("UK Daily", ukDailyPuzzle);
 }
 
 main().then((x) => {
