@@ -37,5 +37,5 @@ async function main() {
 
 main().then((x) => {
     console.log(x);
-    process.exit(-1);
+    process.exit();
 });
