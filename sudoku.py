@@ -8,22 +8,15 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
-
-SUDOKU_URLS = {
-    "nytimes": "https://www.nytimes.com/puzzles/sudoku/easy",
-    "latimes": {
-        "expert": "https://cdn4.amuselabs.com/lat/date-picker?set=latimes-sudoku-expert"
-    },
-}
-
 sudokuexchange_head = "https://sudokuexchange.com/play/?s="
 
 
-def get_nytimes(url: str):
+def get_nytimes():
     """Scrape all three NY Times puzzles"""
 
+    url = "https://www.nytimes.com/puzzles/sudoku/easy"
     text = requests.get(url).text
-    soup = BeautifulSoup(text)
+    soup = BeautifulSoup(text, features="html.parser")
 
     # find the script that starts with `window.gameData =`
     # usually the first but who knows
@@ -51,8 +44,19 @@ def get_nytimes(url: str):
     return puzzles
 
 
+def get_latimes():
+    """Scrape all four LA Times puzzles"""
+
+    today = datetime.now().strftime(r"%Y%m%d")
+    for difficulty in ("easy", "medium", "hard", "expert"):
+        url = f"https://cdn4.amuselabs.com/lat/sudoku?id=latimes-sudoku-{difficulty}-{today}&set=latimes-sudoku-{difficulty}"
+        text = requests.get(url).text
+        soup = BeautifulSoup(text, features="html.parser")
+
+
+
 
 
 if __name__ == "__main__":
-    puzzles = get_nytimes(SUDOKU_URLS["nytimes"])
+    puzzles = get_nytimes()
     print(puzzles)
