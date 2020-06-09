@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: '9 23 * * *'
+    - cron: '11 23 * * *'
     - cron: '1 22 * * *'
 
 # A workflow run is made up of one or more jobs
