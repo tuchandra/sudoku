@@ -53,7 +53,7 @@ async function getUKDailyPuzzle() {
     for (cell of document.getElementsByClassName("InnerTDOne")) {
       labels.push(parseInt(cell.innerText));
     }
-    labels = labels.map(x => (isNaN(x) ? 0 : x));
+    labels = labels.map((x) => (isNaN(x) ? 0 : x));
 
     let text = "https://sudokuexchange.com/play/?s=" + labels.join("");
     return text;
