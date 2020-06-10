@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
     - name: Run Python scraper
-      run: python sudoku.py
+      run: python sudoku.py >> puzzle_output.txt
 
     # Run Node stuff
     - name: Set up Node
@@ -33,6 +33,6 @@ jobs:
         node-version: 14
     - run: npm install
     - name: Run Node scraper
-      run: node index.js
+      run: node index.js >> puzzle_output.txt
 
     
