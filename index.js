@@ -1,16 +1,25 @@
 // index.js - parsing for LA times
 const puppeteer = require("puppeteer");
 
-function getLATimesURL(difficulty) {
-  // get the URL of today's LA times sudoku
-  // difficulty: str, one of "easy", "medium", "hard", "expert"
+function getDateCentralTime(date) {
+  const todayStr = new Date().toLocaleString('en-US', {
+    timeZone: "America/Chicago"
+  });
+  const today = new Date(todayStr);
 
-  // get date as YYYYMMDD
-  const today = new Date();
   const year = String(today.getFullYear());
   const month = ("0" + (today.getMonth() + 1)).slice(-2);
   const day = ("0" + today.getDate()).slice(-2);
   const dateStr = year + month + day;
+
+  return dateStr;
+}
+
+function getLATimesURL(difficulty) {
+  // get the URL of today's LA times Sudoku
+  // difficulty: str, one of "easy", "medium", "hard", "expert"
+
+  const dateStr = getDateCentralTime();
 
   const url =
     "https://cdn4.amuselabs.com/lat/sudoku?id=latimes-sudoku-" +
@@ -30,7 +39,6 @@ async function getLATimesPuzzle(url) {
 
   const puzzle = await page.evaluate(() => {
     let labels = [];
-    console.log(document.getElementsByClassName("box"));
     for (cell of document.getElementsByClassName("box")) {
       if (cell.classList.contains("prerevealed-box")) {
         labels.push(parseInt(cell.firstChild.innerText));
