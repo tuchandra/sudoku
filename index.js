@@ -68,12 +68,12 @@ async function main() {
   for (diff of difficulties) {
     url = getLATimesURL(diff);
     puzzle_link = await getLATimesPuzzle(url);
-    console.log(diff, puzzle_link);
+    console.log("LA Times", diff, "--", puzzle_link);
   }
 
   // get UK Daily puzzle
   ukDailyPuzzle = await getUKDailyPuzzle();
-  console.log("UK Daily", ukDailyPuzzle);
+  console.log("UK Daily --", ukDailyPuzzle);
 }
 
 main().then((x) => {

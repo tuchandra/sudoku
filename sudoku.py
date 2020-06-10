@@ -64,5 +64,9 @@ def get_dailysudoku():
 
 
 if __name__ == "__main__":
-    for sudoku_fetcher in (get_nytimes, get_dailysudoku):
-        print(sudoku_fetcher())
+    nytimes_links = get_nytimes()
+    for difficulty, link in nytimes_links.items():
+        print(f"NY Times {difficulty} -- {link}")
+
+    dailysudoku_link = get_dailysudoku()
+    print(f"dailysudoku.com -- {dailysudoku_link}")
