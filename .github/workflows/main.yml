@@ -33,7 +33,7 @@ jobs:
         node-version: 14
     - run: npm install
     - name: Run Node scraper
-      run: node index.js 
+      run: node index.js >> puzzle_output.txt
 
     # Show everything (temporary)
     - name: list links
