@@ -27,9 +27,9 @@ async function getLATimesPuzzle(url) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
+  await page.waitFor(1000);
 
   const puzzle = await page.evaluate(() => {
-    console.log(document);
     let labels = [];
     for (cell of document.getElementsByClassName("box")) {
       if (cell.classList.contains("prerevealed-box")) {
