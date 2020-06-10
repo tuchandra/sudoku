@@ -27,7 +27,6 @@ async function getLATimesPuzzle(url) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
-  await page.waitFor(2000);
 
   const puzzle = await page.evaluate(() => {
     let labels = [];
