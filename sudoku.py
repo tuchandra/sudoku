@@ -39,7 +39,7 @@ def get_nytimes():
     for difficulty in ("easy", "medium", "hard"):
         digits = puzzle_info[difficulty]["puzzle_data"]["puzzle"]
         digits_str = "".join(str(x) for x in digits)
-        puzzles[f"NY Times {difficulty}"] = f"{sudokuexchange_head}{digits_str}"
+        puzzles[difficulty] = f"{sudokuexchange_head}{digits_str}"
 
     return puzzles
 
