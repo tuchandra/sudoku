@@ -30,6 +30,7 @@ async function getLATimesPuzzle(url) {
 
   const puzzle = await page.evaluate(() => {
     let labels = [];
+    console.log(document.getElementsByClassName("box"));
     for (cell of document.getElementsByClassName("box")) {
       if (cell.classList.contains("prerevealed-box")) {
         labels.push(parseInt(cell.firstChild.innerText));
