@@ -36,7 +36,12 @@ jobs:
       run: node index.js >> puzzle_output.txt
 
     # Show everything (temporary)
-    - name: list links
+    - name: List puzzle output
       run: cat puzzle_output.txt
 
-    
+    - name: Upload puzzle output
+      uses: actions/upload-artifact@v1
+      with:
+        name: out
+        path: puzzle_output.txt
+
