@@ -29,6 +29,7 @@ async function getLATimesPuzzle(url) {
   await page.goto(url);
 
   const puzzle = await page.evaluate(() => {
+    console.log(document);
     let labels = [];
     for (cell of document.getElementsByClassName("box")) {
       if (cell.classList.contains("prerevealed-box")) {
