@@ -62,6 +62,40 @@ def get_dailysudoku():
     numbers = data["numbers"].replace(".", "0")
     return f"{sudokuexchange_head}{numbers}"
 
+def get_tribune():
+    """Get puzzle from Tribune Content Agency"""
+
+    # not sure how often this expires
+    api_key = ("b366a2d09d81e980a1e3c3eac8ddbe524a3d9a79d88d6e4e92495f8a10e3246a",)
+    today = datetime.now().strftime(r"%m/%d/%Y")
+    form_data = {
+        "apiKey": api_key,
+        "productId": "sudoku",
+        "publicationDate": today,
+        "ldt": today,
+    }
+
+    headers = {"Accept": "application/json, text/javascript, */*; q=0.01"}
+
+    data = requests.post(
+        "https://puzzles.tribunecontentagency.com/puzzles/pzzResource/puzzle.do",
+        data=form_data,
+        headers=headers,
+    ).json()
+
+    # this just handles the structure of the JSON they return
+    numbers = []
+    for cell in data["puzzleDetails"]["gCells"]:
+        # check if cell was filled out or not
+        if cell["qcell"]:
+            numbers.append(cell["cellVal"])
+        else:
+            numbers.append("0")
+
+    cell_string = "".join(numbers)
+    return f"{sudokuexchange_head}{cell_string}"
+
+
 
 if __name__ == "__main__":
     nytimes_links = get_nytimes()
@@ -70,3 +104,6 @@ if __name__ == "__main__":
 
     dailysudoku_link = get_dailysudoku()
     print(f"dailysudoku.com -- {dailysudoku_link}")
+
+    tribune_link = get_tribune()
+    print(f"Chicago Tribune -- {tribune_link}")
