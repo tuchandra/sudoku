@@ -56,6 +56,6 @@ jobs:
     - name: Create puzzle issue
       uses: maxkomarychev/oction-create-issue@v0.7.1
       with:
-        token: {{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         title: test issue
         body: Hello, world!
