@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
     - name: Run Python scraper
-      run: python sudoku.py >> puzzle_output.txt
+      run: python sudoku.py >> puzzle_output.md
 
     # Run Node stuff
     - name: Set up Node
@@ -33,15 +33,15 @@ jobs:
         node-version: 14
     - run: npm install
     - name: Run Node scraper
-      run: node index.js >> puzzle_output.txt
+      run: node index.js >> puzzle_output.md
 
     # Show everything (temporary)
     - name: List puzzle output
-      run: cat puzzle_output.txt
+      run: cat puzzle_output.md
 
     - name: Upload puzzle output
       uses: actions/upload-artifact@v1
       with:
         name: out
-        path: puzzle_output.txt
+        path: puzzle_output.md
 
