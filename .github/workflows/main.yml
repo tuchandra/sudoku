@@ -17,8 +17,10 @@ jobs:
     # Set up the output file
     - name: Set up puzzle output file
       run: | 
-        echo -n "Sudoku puzzles for " >> puzzle_output.md
+        echo -n "# Sudoku puzzles for " >> puzzle_output.md
         date +'%Y-%m-%d' >> puzzle_output.md
+        echo -n "Generated at " >> puzzle_output.md
+        echo date >> puzzle_output.md
 
     # Run Python stuff
     - name: Set up Python
@@ -51,3 +53,9 @@ jobs:
         name: out
         path: puzzle_output.md
 
+    - name: Create puzzle issue
+      uses: maxkomarychev/oction-create-issue@v0.7.1
+      with:
+        token: {{ secrets.GITHUB_TOKEN }}
+        title: test issue
+        body: Hello, world!
