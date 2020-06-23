@@ -14,6 +14,11 @@ jobs:
     # Check out code
     - uses: actions/checkout@v2
 
+    # Set up the output file
+    - name: Set up puzzle output file
+      run: echo -n "Sudoku puzzles for " >> puzzle_output.md
+      run: date +'%Y-%m-%d' >> puzzle_output.md
+
     # Run Python stuff
     - name: Set up Python
       uses: actions/setup-python@v2
