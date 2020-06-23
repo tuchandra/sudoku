@@ -18,7 +18,7 @@ jobs:
     - name: Set up puzzle output file
       run: | 
         echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
-        echo \# Sudoku puzzles for $TODAY" >> puzzle_output.md
+        echo \# Sudoku puzzles for $TODAY >> puzzle_output.md
         echo -n "Generated at " >> puzzle_output.md
         date >> puzzle_output.md
 
