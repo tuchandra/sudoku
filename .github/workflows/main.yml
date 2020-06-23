@@ -21,6 +21,7 @@ jobs:
         echo \# Sudoku puzzles for $TODAY >> puzzle_output.md
         echo -n "Generated at " >> puzzle_output.md
         date >> puzzle_output.md
+        echo >> puzzle_output.md
 
     # Run Python stuff
     - name: Set up Python
