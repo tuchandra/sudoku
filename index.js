@@ -78,14 +78,14 @@ async function main() {
     url = getLATimesURL(diff);
     puzzle_link = await getLATimesPuzzle(url);
     console.log(
-      `[LA Times ${diff}](https://www.latimes.com/games/sudoku) -- ${puzzle_link}`
+      `**LA Times ${diff}** ([source](https://www.latimes.com/games/sudoku)): [SudokuExchange link](${puzzle_link})`
     );
   }
 
   // get UK Daily puzzle
   ukDailyPuzzle = await getUKDailyPuzzle();
   console.log(
-    `[UK Daily](http://www.sudoku.org.uk/Daily.asp) -- ${ukDailyPuzzle}`
+    `**UK Daily** ([source](http://www.sudoku.org.uk/Daily.asp)): [SudokuExchange link](${ukDailyPuzzle})`
   );
 }
 

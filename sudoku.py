@@ -20,7 +20,7 @@ class Puzzle:
 
     def __repr__(self):
         # format as markdown
-        return f"[{self.name}]({self.source_url}) -- {self.sudokuexchange_url}"
+        return f"**{self.name}** ([source]({self.source_url})): [SudokuExchange link]({self.sudokuexchange_url})"
 
 
 def get_nytimes():
