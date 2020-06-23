@@ -2,8 +2,8 @@
 const puppeteer = require("puppeteer");
 
 function getDateCentralTime(date) {
-  const todayStr = new Date().toLocaleString('en-US', {
-    timeZone: "America/Chicago"
+  const todayStr = new Date().toLocaleString("en-US", {
+    timeZone: "America/Chicago",
   });
   const today = new Date(todayStr);
 
@@ -77,12 +77,16 @@ async function main() {
   for (diff of difficulties) {
     url = getLATimesURL(diff);
     puzzle_link = await getLATimesPuzzle(url);
-    console.log("LA Times", diff, "--", puzzle_link);
+    console.log(
+      `[LA Times ${diff}](https://www.latimes.com/games/sudoku) -- ${puzzle_link}`
+    );
   }
 
   // get UK Daily puzzle
   ukDailyPuzzle = await getUKDailyPuzzle();
-  console.log("UK Daily --", ukDailyPuzzle);
+  console.log(
+    `[UK Daily](http://www.sudoku.org.uk/Daily.asp) -- ${ukDailyPuzzle}`
+  );
 }
 
 main().then((x) => {

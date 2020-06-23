@@ -4,6 +4,7 @@ sudoku.py -- scrape common web sources for Sudokus
 
 import json
 from datetime import datetime
+from dataclasses import dataclass
 
 import requests
 from bs4 import BeautifulSoup
@@ -11,11 +12,22 @@ from bs4 import BeautifulSoup
 sudokuexchange_head = "https://sudokuexchange.com/play/?s="
 
 
+@dataclass
+class Puzzle:
+    name: str
+    source_url: str
+    sudokuexchange_url: str
+
+    def __repr__(self):
+        # format as markdown
+        return f"[{self.name}]({self.source_url}) -- {self.sudokuexchange_url}"
+
+
 def get_nytimes():
     """Scrape all three NY Times puzzles"""
 
-    url = "https://www.nytimes.com/puzzles/sudoku/easy"
-    text = requests.get(url).text
+    nyt_url = "https://www.nytimes.com/puzzles/sudoku/easy"
+    text = requests.get(nyt_url).text
     soup = BeautifulSoup(text, features="html.parser")
 
     # find the script that starts with `window.gameData =`
@@ -35,11 +47,14 @@ def get_nytimes():
     # now we have puzzle_info as a dict with keys easy, medium, hard
     # and some levels of nesting; get the puzzle information and
     # create the SudokuExchange link
-    puzzles = {}
+    puzzles = []
     for difficulty in ("easy", "medium", "hard"):
         digits = puzzle_info[difficulty]["puzzle_data"]["puzzle"]
         digits_str = "".join(str(x) for x in digits)
-        puzzles[difficulty] = f"{sudokuexchange_head}{digits_str}"
+
+        source_url = nyt_url.replace("easy", "difficulty")
+        se_url = f"{sudokuexchange_head}{digits_str}"
+        puzzles.append(Puzzle(f"NY Times {difficulty}", source_url, se_url))
 
     return puzzles
 
@@ -60,7 +75,8 @@ def get_dailysudoku():
     ).json()
 
     numbers = data["numbers"].replace(".", "0")
-    return f"{sudokuexchange_head}{numbers}"
+    return Puzzle("DailySudoku.com", url, f"{sudokuexchange_head}{numbers}")
+
 
 def get_tribune():
     """Get puzzle from Tribune Content Agency"""
@@ -93,17 +109,20 @@ def get_tribune():
             numbers.append("0")
 
     cell_string = "".join(numbers)
-    return f"{sudokuexchange_head}{cell_string}"
-
+    return Puzzle(
+        "Chicago Tribune",
+        "https://www.chicagotribune.com/entertainment/games/ct-sudoku-daily-htmlstory.html",
+        f"{sudokuexchange_head}{cell_string}",
+    )
 
 
 if __name__ == "__main__":
-    nytimes_links = get_nytimes()
-    for difficulty, link in nytimes_links.items():
-        print(f"NY Times {difficulty} -- {link}")
+    nytimes_puzzles = get_nytimes()
+    for puzzle in nytimes_puzzles:
+        print(puzzle)
 
-    dailysudoku_link = get_dailysudoku()
-    print(f"dailysudoku.com -- {dailysudoku_link}")
+    dailysudoku_puzzle = get_dailysudoku()
+    print(dailysudoku_puzzle)
 
-    tribune_link = get_tribune()
-    print(f"Chicago Tribune -- {tribune_link}")
+    tribune_puzzle = get_tribune()
+    print(tribune_puzzle)
