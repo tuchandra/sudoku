@@ -60,5 +60,5 @@ jobs:
     - name: Create puzzle issue
       uses: peter-evans/create-issue-from-file@v2
       with:
-        title: Daily Sudokus for ${{ TODAY }}
+        title: Daily Sudokus for ${{ env.TODAY }}
         content-filepath: ./puzzle_output.md
