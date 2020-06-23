@@ -17,10 +17,10 @@ jobs:
     # Set up the output file
     - name: Set up puzzle output file
       run: | 
-        echo -n "# Sudoku puzzles for " >> puzzle_output.md
-        date +'%Y-%m-%d' >> puzzle_output.md
+        echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
+        echo "# Sudoku puzzles for $TODAY" >> puzzle_output.md
         echo -n "Generated at " >> puzzle_output.md
-        echo date >> puzzle_output.md
+        date >> puzzle_output.md
 
     # Run Python stuff
     - name: Set up Python
@@ -56,5 +56,5 @@ jobs:
     - name: Create puzzle issue
       uses: peter-evans/create-issue-from-file@v2
       with:
-        title: Another test issue
+        title: Daily Sudokus for 
         content-filepath: ./puzzle_output.md
