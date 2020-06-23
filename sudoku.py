@@ -116,6 +116,29 @@ def get_tribune():
     )
 
 
+def get_usatoday():
+    """Get the puzzle from USA Today"""
+
+    today = datetime.now().strftime(r"%Y-%m-%d")
+
+    # not sure how long this URL is valid
+    url = f"https://gamedata.services.amuniversal.com/c/uupuz/l/U2FsdGVkX18CR3EauHsCV8JgqcLh1ptpjBeQ%2Bnjkzhu8zNO00WYK6b%2BaiZHnKcAD%0A9vwtmWJp2uHE9XU1bRw2gA%3D%3D/g/ussud/d/{today}/data.json"
+    data = requests.get(url).json()
+
+    # this just handles the structure of the JSON they return
+    numbers = []
+    lines = [f"line{i}" for i in range(1, 10)]
+    for key in lines:
+        numbers.append(data["Layout"][key])
+
+    numbers_string = "".join(numbers).replace("-", "0")
+    return Puzzle(
+        "USA Today",
+        "https://puzzles.usatoday.com/sudoku/",
+        f"{sudokuexchange_head}{numbers_string}",
+    )
+
+
 if __name__ == "__main__":
     nytimes_puzzles = get_nytimes()
     for puzzle in nytimes_puzzles:
@@ -126,3 +149,6 @@ if __name__ == "__main__":
 
     tribune_puzzle = get_tribune()
     print(tribune_puzzle)
+
+    usatoday_puzzle = get_usatoday()
+    print(usatoday_puzzle)
