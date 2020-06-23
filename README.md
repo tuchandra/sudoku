@@ -4,7 +4,7 @@
 <img src="readme_img.png">
 
 ## What is this?
-I really love Sudoku puzzles; the New York Times publishes three difficulties each day, the LA Times publishes four, and a couple other sources publish daily puzzles too. Solving these is great, but a lot of websites' puzzle interfaces are lacking.
+I really love Sudoku puzzles; the New York Times publishes three difficulties each day, the LA Times publishes four, and a couple other sources publish daily puzzles, too. Solving these is great, but a lot of websites' puzzle interfaces are lacking.
 
 I recently discovered [SudokuExchange](https://sudokuexchange.com/), which has, in my opinion, the best interface for solving Sudoku puzzles online. I found myself manually entering puzzles from other places into SudokuExchange too often, so, like any engineer, I wrote code to do it for me.
 
@@ -16,7 +16,7 @@ The LA Times puzzles, though, used a fair amount of obfuscated JavaScript that m
 
 At this point, I decided it'd be easier to do this in JavaScript, and after some searching I found [Pupeteer](https://github.com/puppeteer/puppeteer) to run headless Chrome. The docs were excellent, and it was easy to get started, so I threw together a Node script and we were all set.
 
-The last step was automating it all. I had wanted to learn more about CI for a while, so I set up a [Github Actions workflow](https://github.com/tuchandra/sudoku/actions) to run this a few times a day (accounting for the fact that different website posted their puzzles at different times). This took a *lot* of trial and error, but now I'm getting daily links to great Sudoku puzzles.
+The last step was automating it all. I had wanted to learn more about CI for a while, so I set up a [Github Actions workflow](https://github.com/tuchandra/sudoku/actions) to run this daily at 6AM. The end result is a daily Github Issue with all the puzzle links in them; see [this example](https://github.com/tuchandra/sudoku/issues/9). This took a *lot* of trial and error, but now I'm getting daily links to great Sudoku puzzles.
 
 
 ## Repo contents
