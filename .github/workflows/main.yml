@@ -2,8 +2,8 @@ name: Get Sudoku puzzle links
 
 on:
   schedule:
-    # this is noon UTC = 7AM Central, in time for me to wake up
-    - cron: '0 12 * * *'
+    # this is 1PM UTC = 8AM Central, in time for me to wake up
+    - cron: '0 13 * * *'
   push:
     branches: [ master ]
 
