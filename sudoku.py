@@ -144,11 +144,20 @@ if __name__ == "__main__":
     for puzzle in nytimes_puzzles:
         print(puzzle)
 
-    dailysudoku_puzzle = get_dailysudoku()
-    print(dailysudoku_puzzle)
+    try:
+        dailysudoku_puzzle = get_dailysudoku()
+        print(dailysudoku_puzzle)
+    except:
+        print("DailySudoku.com: failed")
 
-    tribune_puzzle = get_tribune()
-    print(tribune_puzzle)
+    try:
+        tribune_puzzle = get_tribune()
+        print(tribune_puzzle)
+    except:
+        print("Chicago Tribune: failed")
 
-    usatoday_puzzle = get_usatoday()
-    print(usatoday_puzzle)
+    try:
+        usatoday_puzzle = get_usatoday()
+        print(usatoday_puzzle)
+    except:
+        print("USA Today: failed")
