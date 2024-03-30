@@ -18,6 +18,8 @@ jobs:
     # Set the date
     - name: Set the date
       run: echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     # Set up the output file
     - name: Set up puzzle output file
