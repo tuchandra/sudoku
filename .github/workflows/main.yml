@@ -2,10 +2,10 @@ name: Get Sudoku puzzle links
 
 on:
   schedule:
-    # this is 1PM UTC = 8AM Central, in time for me to wake up
-    - cron: '0 13 * * *'
+    - cron: '0 08 * * *'
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   run:
