@@ -2,7 +2,7 @@ name: Get Sudoku puzzle links
 
 on:
   schedule:
-    - cron: '0 08 * * *'
+    - cron: '0 05 * * *'
   push:
     branches: [ master ]
   workflow_dispatch:
