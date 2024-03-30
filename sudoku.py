@@ -151,8 +151,8 @@ if __name__ == "__main__":
         print("DailySudoku.com: failed")
 
     try:
-        tribune_puzzle = get_tribune()
-        print(tribune_puzzle)
+        # tribune_puzzle = get_tribune()
+        # print(tribune_puzzle)
     except:
         print("Chicago Tribune: failed")
 
