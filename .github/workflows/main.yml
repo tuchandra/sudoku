@@ -61,7 +61,7 @@ jobs:
         path: puzzle_output.md
 
     - name: Create puzzle issue
-      uses: peter-evans/create-issue-from-file@v2
+      uses: peter-evans/create-issue-from-file@v5
       with:
         title: Daily Sudokus for ${{ env.TODAY }}
         content-filepath: ./puzzle_output.md
