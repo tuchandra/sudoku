@@ -2,10 +2,9 @@ name: Get Sudoku puzzle links
 
 on:
   schedule:
-    # this is 1PM UTC = 8AM Central, in time for me to wake up
-    - cron: '0 13 * * *'
-  push:
-    branches: [ master ]
+    - cron: '0 05 * * *'
+  # push: { branches: [ master ] }
+  workflow_dispatch:
 
 jobs:
   run:
@@ -18,6 +17,8 @@ jobs:
     # Set the date
     - name: Set the date
       run: echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     # Set up the output file
     - name: Set up puzzle output file
@@ -59,7 +60,7 @@ jobs:
         path: puzzle_output.md
 
     - name: Create puzzle issue
-      uses: peter-evans/create-issue-from-file@v2
+      uses: peter-evans/create-issue-from-file@v5
       with:
         title: Daily Sudokus for ${{ env.TODAY }}
         content-filepath: ./puzzle_output.md
