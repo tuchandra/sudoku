@@ -2,65 +2,58 @@ name: Get Sudoku puzzle links
 
 on:
   schedule:
-    - cron: '0 05 * * *'
-  # push: { branches: [ master ] }
+    - cron: "0 05 * * *"
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
-    # Check out code
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    # Set the date
-    - name: Set the date
-      run: echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      # Set the date
+      - name: Set the date
+        run: echo "::set-env name=TODAY::$(date +'%Y-%m-%d')"
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
 
-    # Set up the output file
-    - name: Set up puzzle output file
-      run: | 
-        echo \# Sudoku puzzles for $TODAY >> puzzle_output.md
-        echo -n "Generated at " >> puzzle_output.md
-        date >> puzzle_output.md
-        echo >> puzzle_output.md
+      - name: Set up puzzle output file
+        run: |
+          echo \# Sudoku puzzles for $TODAY >> puzzle_output.md
+          echo -n "Generated at " >> puzzle_output.md
+          date >> puzzle_output.md
+          echo >> puzzle_output.md
 
-    # Run Python stuff
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests beautifulsoup4
-    - name: Run Python scraper
-      run: python sudoku.py >> puzzle_output.md
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+      - name: Run Python scraper
+        run: python sudoku.py >> puzzle_output.md
 
-    # Run Node stuff
-    - name: Set up Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14
-    - run: npm install
-    - name: Run Node scraper
-      run: node index.js >> puzzle_output.md
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - run: npm install
+      - name: Run Node scraper
+        run: node index.js >> puzzle_output.md
 
-    # Show everything (temporary)
-    - name: List puzzle output
-      run: cat puzzle_output.md
+      - name: List puzzle output
+        run: cat puzzle_output.md
 
-    - name: Upload puzzle output
-      uses: actions/upload-artifact@v1
-      with:
-        name: out
-        path: puzzle_output.md
+      - name: Upload puzzle output
+        uses: actions/upload-artifact@v4
+        with:
+          name: out
+          path: puzzle_output.md
 
-    - name: Create puzzle issue
-      uses: peter-evans/create-issue-from-file@v5
-      with:
-        title: Daily Sudokus for ${{ env.TODAY }}
-        content-filepath: ./puzzle_output.md
+      - name: Create puzzle issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Daily Sudokus for ${{ env.TODAY }}
+          content-filepath: ./puzzle_output.md
