@@ -39,7 +39,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
-          node-version: 24
+          node-version: 20
       - run: npm install
       - name: Run Node scraper
         run: node index.js >> puzzle_output.md
